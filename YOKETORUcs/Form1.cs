@@ -1,4 +1,5 @@
 using Microsoft.VisualBasic.ApplicationServices;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
 namespace YOKETORUcs
@@ -7,6 +8,17 @@ namespace YOKETORUcs
     {
         [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(int vKey);
+
+        static int PlayerMax => 1;
+        static int EnemyMax => 4;
+        static int ItemMax => 4;
+
+        static int PlayerIndex => 0;
+        static int EnemyIndex => PlayerIndex + PlayerMax;//0+1=1
+        static int ItemIndex => EnemyIndex + EnemyMax;//0+4=4
+        static int LabelMax => ItemIndex + EnemyMax;//4+5=9
+
+        Label[] labels = new Label[LabelMax];
 
         //ó‘Ô‘JˆÚAó‘Ô’è‹`
         enum State
@@ -31,6 +43,34 @@ namespace YOKETORUcs
         public Form1()
         {
             InitializeComponent();
+
+            for (int i = 0; i < LabelMax; i++)
+            {
+                labels[i] = new Label();
+                labels[i].AutoSize = true;
+                Controls.Add(labels[i]);
+                labels[i].Left += i * 60 + 50;
+
+                //Text,Font,ForeColor‚ğí—Ş‚²‚Æ‚Éİ’è
+                if (i >= PlayerIndex && i < PlayerMax)
+                {
+                    labels[i].Text = labelPlayer.Text;
+                    labels[i].Font = labelPlayer.Font;
+                    labels[i].ForeColor = labelPlayer.ForeColor;
+                }
+                if (i >= EnemyIndex && i <= EnemyMax)
+                {
+                    labels[i].Text = labelEnemy.Text;
+                    labels[i].Font = labelEnemy.Font;
+                    labels[i].ForeColor = labelEnemy.ForeColor;
+                }
+                if (i >= ItemIndex && i < LabelMax)
+                {
+                    labels[i].Text = labelItem.Text;
+                    labels[i].Font = labelItem.Font;
+                    labels[i].ForeColor = labelItem.ForeColor;
+                }
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -98,26 +138,6 @@ namespace YOKETORUcs
             if (GetAsyncKeyState((int)Keys.C) < 0)
             {
                 nextState = State.Clear;
-            }
-
-            if (GetAsyncKeyState((int)Keys.D) < 0)
-            {
-                labelPlayer.Left += 5;
-            }
-
-            if (GetAsyncKeyState((int)Keys.A) < 0)
-            {
-                labelPlayer.Left -= 5;
-            }
-
-            if (GetAsyncKeyState((int)Keys.S) < 0)
-            {
-                labelPlayer.Top += 5;
-            }
-
-            if (GetAsyncKeyState((int)Keys.W) < 0)
-            {
-                labelPlayer.Top -= 5;
             }
         }
 

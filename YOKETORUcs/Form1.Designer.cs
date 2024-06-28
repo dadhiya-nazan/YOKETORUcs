@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             timer1 = new System.Windows.Forms.Timer(components);
             labelTitle = new Label();
             buttonStart = new Button();
@@ -132,11 +133,12 @@
             // 
             labelItem.AutoSize = true;
             labelItem.Font = new Font("メイリオ", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            labelItem.Image = (Image)resources.GetObject("labelItem.Image");
             labelItem.Location = new Point(299, 290);
             labelItem.Name = "labelItem";
             labelItem.Size = new Size(45, 41);
             labelItem.TabIndex = 7;
-            labelItem.Text = "星";
+            labelItem.Text = "ア";
             // 
             // labelPlayer
             // 
