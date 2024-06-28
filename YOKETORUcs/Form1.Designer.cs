@@ -34,6 +34,7 @@
             buttonStart = new Button();
             labelGameover = new Label();
             buttonToTitle = new Button();
+            labelClear = new Label();
             SuspendLayout();
             // 
             // timer1
@@ -47,8 +48,8 @@
             labelTitle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             labelTitle.AutoSize = true;
             labelTitle.Font = new Font("Yu Gothic UI", 72F, FontStyle.Bold, GraphicsUnit.Point);
-            labelTitle.ForeColor = Color.FromArgb(192, 255, 255);
-            labelTitle.Location = new Point(191, 135);
+            labelTitle.ForeColor = Color.Cyan;
+            labelTitle.Location = new Point(207, 130);
             labelTitle.Name = "labelTitle";
             labelTitle.Size = new Size(542, 128);
             labelTitle.TabIndex = 0;
@@ -57,10 +58,10 @@
             // 
             // buttonStart
             // 
-            buttonStart.BackColor = Color.Cyan;
+            buttonStart.BackColor = Color.MintCream;
             buttonStart.Font = new Font("UD デジタル 教科書体 NK-B", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            buttonStart.ForeColor = SystemColors.ButtonFace;
-            buttonStart.Location = new Point(401, 349);
+            buttonStart.ForeColor = Color.RoyalBlue;
+            buttonStart.Location = new Point(381, 349);
             buttonStart.Name = "buttonStart";
             buttonStart.Size = new Size(154, 84);
             buttonStart.TabIndex = 1;
@@ -72,7 +73,7 @@
             // 
             labelGameover.AutoSize = true;
             labelGameover.Font = new Font("Bauhaus 93", 48F, FontStyle.Bold, GraphicsUnit.Point);
-            labelGameover.Location = new Point(257, 180);
+            labelGameover.Location = new Point(256, 175);
             labelGameover.Name = "labelGameover";
             labelGameover.Size = new Size(441, 73);
             labelGameover.TabIndex = 2;
@@ -83,12 +84,24 @@
             buttonToTitle.BackColor = Color.LightCoral;
             buttonToTitle.Font = new Font("UD デジタル 教科書体 NK-B", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buttonToTitle.ForeColor = SystemColors.ActiveCaptionText;
-            buttonToTitle.Location = new Point(401, 349);
+            buttonToTitle.Location = new Point(381, 349);
             buttonToTitle.Name = "buttonToTitle";
             buttonToTitle.Size = new Size(154, 84);
             buttonToTitle.TabIndex = 3;
             buttonToTitle.Text = "タイトルへ";
             buttonToTitle.UseVisualStyleBackColor = false;
+            buttonToTitle.Click += buttonToTitle_Click;
+            // 
+            // labelClear
+            // 
+            labelClear.AutoSize = true;
+            labelClear.Font = new Font("Bauhaus 93", 48F, FontStyle.Bold, GraphicsUnit.Point);
+            labelClear.ForeColor = Color.FromArgb(233, 238, 11);
+            labelClear.Location = new Point(323, 175);
+            labelClear.Name = "labelClear";
+            labelClear.Size = new Size(288, 73);
+            labelClear.TabIndex = 4;
+            labelClear.Text = "CREAR!!";
             // 
             // Form1
             // 
@@ -99,6 +112,7 @@
             Controls.Add(labelTitle);
             Controls.Add(labelGameover);
             Controls.Add(buttonToTitle);
+            Controls.Add(labelClear);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
@@ -112,5 +126,6 @@
         private Button buttonStart;
         private Label labelGameover;
         private Button buttonToTitle;
+        private Label labelClear;
     }
 }

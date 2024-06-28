@@ -1,7 +1,13 @@
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Runtime.InteropServices;
+
 namespace YOKETORUcs
 {
     public partial class Form1 : Form
     {
+        [DllImport("user32.dll")]
+        public static extern short GetAsyncKeyState(int vKey);
+
         //状態遷移、状態定義
         enum State
         {
@@ -34,7 +40,7 @@ namespace YOKETORUcs
         }
 
         void InitState()
-        {
+        {   //番人
             if (nextState == State.None)
             {
                 return;
@@ -46,6 +52,10 @@ namespace YOKETORUcs
             switch (currentState)
             {
                 case State.Title:
+                    labelTitle.Visible = true;
+                    buttonStart.Visible = true;
+
+                    labelClear.Visible = false;
                     labelGameover.Visible = false;
                     buttonToTitle.Visible = false;
                     break;
@@ -53,7 +63,17 @@ namespace YOKETORUcs
                 case State.Game:
                     labelTitle.Visible = false;
                     buttonStart.Visible = false;
-                    break; 
+                    break;
+
+                case State.Gameover:
+                    labelGameover.Visible = true;
+                    buttonToTitle.Visible = true;
+                    break;
+
+                case State.Clear:
+                    labelClear.Visible = true;
+                    buttonToTitle.Visible = true;
+                    break;
             }
         }
 
@@ -70,7 +90,15 @@ namespace YOKETORUcs
         //ゲーム状態の更新用メソッド
         void UpdateGame()
         {
+            if (GetAsyncKeyState((int)Keys.O) < 0)
+            {
+                nextState = State.Gameover;
+            }
 
+            if (GetAsyncKeyState((int)Keys.C) < 0)
+            {
+                nextState = State.Clear;
+            }
         }
 
         private void labelTitle_Click(object sender, EventArgs e)
@@ -81,6 +109,11 @@ namespace YOKETORUcs
         private void buttonStart_Click(object sender, EventArgs e)
         {
             nextState = State.Game;
+        }
+
+        private void buttonToTitle_Click(object sender, EventArgs e)
+        {
+            nextState = State.Title;
         }
     }
 }
