@@ -35,6 +35,11 @@
             labelGameover = new Label();
             buttonToTitle = new Button();
             labelClear = new Label();
+            labelScore = new Label();
+            labelTime = new Label();
+            labelItem = new Label();
+            labelPlayer = new Label();
+            labelEnemy = new Label();
             SuspendLayout();
             // 
             // timer1
@@ -47,11 +52,11 @@
             // 
             labelTitle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             labelTitle.AutoSize = true;
-            labelTitle.Font = new Font("Yu Gothic UI", 72F, FontStyle.Bold, GraphicsUnit.Point);
+            labelTitle.Font = new Font("Swis721 Blk BT", 60F, FontStyle.Italic, GraphicsUnit.Point);
             labelTitle.ForeColor = Color.Cyan;
-            labelTitle.Location = new Point(207, 130);
+            labelTitle.Location = new Point(217, 162);
             labelTitle.Name = "labelTitle";
-            labelTitle.Size = new Size(542, 128);
+            labelTitle.Size = new Size(511, 96);
             labelTitle.TabIndex = 0;
             labelTitle.Text = "YOKETORU";
             labelTitle.Click += labelTitle_Click;
@@ -61,9 +66,9 @@
             buttonStart.BackColor = Color.MintCream;
             buttonStart.Font = new Font("UD デジタル 教科書体 NK-B", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buttonStart.ForeColor = Color.RoyalBlue;
-            buttonStart.Location = new Point(381, 349);
+            buttonStart.Location = new Point(381, 373);
             buttonStart.Name = "buttonStart";
-            buttonStart.Size = new Size(154, 84);
+            buttonStart.Size = new Size(154, 89);
             buttonStart.TabIndex = 1;
             buttonStart.Text = "スタート";
             buttonStart.UseVisualStyleBackColor = false;
@@ -73,7 +78,7 @@
             // 
             labelGameover.AutoSize = true;
             labelGameover.Font = new Font("Bauhaus 93", 48F, FontStyle.Bold, GraphicsUnit.Point);
-            labelGameover.Location = new Point(256, 175);
+            labelGameover.Location = new Point(256, 186);
             labelGameover.Name = "labelGameover";
             labelGameover.Size = new Size(441, 73);
             labelGameover.TabIndex = 2;
@@ -84,9 +89,9 @@
             buttonToTitle.BackColor = Color.LightCoral;
             buttonToTitle.Font = new Font("UD デジタル 教科書体 NK-B", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             buttonToTitle.ForeColor = SystemColors.ActiveCaptionText;
-            buttonToTitle.Location = new Point(381, 349);
+            buttonToTitle.Location = new Point(381, 373);
             buttonToTitle.Name = "buttonToTitle";
-            buttonToTitle.Size = new Size(154, 84);
+            buttonToTitle.Size = new Size(154, 89);
             buttonToTitle.TabIndex = 3;
             buttonToTitle.Text = "タイトルへ";
             buttonToTitle.UseVisualStyleBackColor = false;
@@ -97,22 +102,78 @@
             labelClear.AutoSize = true;
             labelClear.Font = new Font("Bauhaus 93", 48F, FontStyle.Bold, GraphicsUnit.Point);
             labelClear.ForeColor = Color.FromArgb(233, 238, 11);
-            labelClear.Location = new Point(323, 175);
+            labelClear.Location = new Point(323, 186);
             labelClear.Name = "labelClear";
             labelClear.Size = new Size(288, 73);
             labelClear.TabIndex = 4;
             labelClear.Text = "CREAR!!";
             // 
+            // labelScore
+            // 
+            labelScore.AutoSize = true;
+            labelScore.Font = new Font("Swis721 BlkCn BT", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelScore.Location = new Point(448, 9);
+            labelScore.Name = "labelScore";
+            labelScore.Size = new Size(28, 32);
+            labelScore.TabIndex = 5;
+            labelScore.Text = "0";
+            // 
+            // labelTime
+            // 
+            labelTime.AutoSize = true;
+            labelTime.Font = new Font("Swis721 BlkCn BT", 25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelTime.Location = new Point(843, 481);
+            labelTime.Name = "labelTime";
+            labelTime.Size = new Size(72, 41);
+            labelTime.TabIndex = 6;
+            labelTime.Text = "200";
+            // 
+            // labelItem
+            // 
+            labelItem.AutoSize = true;
+            labelItem.Font = new Font("メイリオ", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            labelItem.Location = new Point(299, 290);
+            labelItem.Name = "labelItem";
+            labelItem.Size = new Size(45, 41);
+            labelItem.TabIndex = 7;
+            labelItem.Text = "星";
+            // 
+            // labelPlayer
+            // 
+            labelPlayer.AutoSize = true;
+            labelPlayer.Font = new Font("メイリオ", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            labelPlayer.Location = new Point(424, 310);
+            labelPlayer.Name = "labelPlayer";
+            labelPlayer.Size = new Size(67, 21);
+            labelPlayer.TabIndex = 9;
+            labelPlayer.Text = "( 。∀ ﾟ)";
+            // 
+            // labelEnemy
+            // 
+            labelEnemy.AutoSize = true;
+            labelEnemy.Font = new Font("メイリオ", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            labelEnemy.Location = new Point(556, 290);
+            labelEnemy.Name = "labelEnemy";
+            labelEnemy.Size = new Size(45, 41);
+            labelEnemy.TabIndex = 10;
+            labelEnemy.Text = "敵";
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(944, 501);
+            ClientSize = new Size(944, 535);
+            Controls.Add(labelEnemy);
+            Controls.Add(labelPlayer);
+            Controls.Add(labelItem);
+            Controls.Add(labelTime);
+            Controls.Add(labelScore);
             Controls.Add(buttonStart);
             Controls.Add(labelTitle);
             Controls.Add(labelGameover);
             Controls.Add(buttonToTitle);
             Controls.Add(labelClear);
+            Font = new Font("游ゴシック", 9F, FontStyle.Bold, GraphicsUnit.Point);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
@@ -127,5 +188,10 @@
         private Label labelGameover;
         private Button buttonToTitle;
         private Label labelClear;
+        private Label labelScore;
+        private Label labelTime;
+        private Label labelItem;
+        private Label labelPlayer;
+        private Label labelEnemy;
     }
 }

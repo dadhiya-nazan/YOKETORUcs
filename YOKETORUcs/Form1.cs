@@ -99,6 +99,26 @@ namespace YOKETORUcs
             {
                 nextState = State.Clear;
             }
+
+            if (GetAsyncKeyState((int)Keys.D) < 0)
+            {
+                labelPlayer.Left += 5;
+            }
+
+            if (GetAsyncKeyState((int)Keys.A) < 0)
+            {
+                labelPlayer.Left -= 5;
+            }
+
+            if (GetAsyncKeyState((int)Keys.S) < 0)
+            {
+                labelPlayer.Top += 5;
+            }
+
+            if (GetAsyncKeyState((int)Keys.W) < 0)
+            {
+                labelPlayer.Top -= 5;
+            }
         }
 
         private void labelTitle_Click(object sender, EventArgs e)
