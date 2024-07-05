@@ -49,7 +49,7 @@ namespace YOKETORUcs
                 labels[i] = new Label();
                 labels[i].AutoSize = true;
                 Controls.Add(labels[i]);
-                labels[i].Left += i * 60 + 50;
+                labels[i].Left += i * 60 + 30;
 
                 //Text,Font,ForeColor‚ðŽí—Þ‚²‚Æ‚ÉÝ’è
                 if (i >= PlayerIndex && i < PlayerMax)
@@ -57,6 +57,7 @@ namespace YOKETORUcs
                     labels[i].Text = labelPlayer.Text;
                     labels[i].Font = labelPlayer.Font;
                     labels[i].ForeColor = labelPlayer.ForeColor;
+                    labels[i].Left -= 25;
                 }
                 if (i >= EnemyIndex && i <= EnemyMax)
                 {
