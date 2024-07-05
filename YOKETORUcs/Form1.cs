@@ -28,6 +28,10 @@ namespace YOKETORUcs
 
         static int SpeedMax => 10;
 
+        int score;
+        int timer;
+        int itemget;
+
         //状態遷移、状態定義
         enum State
         {
@@ -58,9 +62,6 @@ namespace YOKETORUcs
                 labels[i].AutoSize = true;
                 labels[i].Visible = false;
                 Controls.Add(labels[i]);
-
-                vx[i] = random.Next(-SpeedMax , SpeedMax+1);
-                vy[i] = random.Next(-SpeedMax , SpeedMax+1);
 
                 labelPlayer.Visible = false;
                 labelEnemy.Visible = false;
@@ -100,7 +101,6 @@ namespace YOKETORUcs
         {
             InitState();
             UpdateState();
-            UpdateChrs();
         }
 
         void InitState()
@@ -127,13 +127,22 @@ namespace YOKETORUcs
                 case State.Game:
                     labelTitle.Visible = false;
                     buttonStart.Visible = false;
-                    
+
                     for (int i = 0; i < LabelMax; i++)
                     {
                         labels[i].Visible = true;
+
+                        vx[i] = random.Next(-SpeedMax, SpeedMax + 1);
+                        vy[i] = random.Next(-SpeedMax, SpeedMax + 1);
+                        labels[i].Left = random.Next(0, ClientSize.Width - labels[i].Width);
+                        labels[i].Top = random.Next(0, ClientSize.Height - labels[i].Height);
                     }
+
+                    score = 0;
+                    timer = 200;
+                    itemget = 0;
                     break;
-                    
+
 
                 case State.Gameover:
                     labelGameover.Visible = true;
@@ -177,10 +186,20 @@ namespace YOKETORUcs
 
             //キャラクターの更新
             UpdateChrs();
+
+            //時間とスコアの更新
+            timer--;
+            labelTime.Text = $"{timer}";
+            labelScore.Text = $"{score}";
+
+            if (timer <= 0)
+                nextState = State.Gameover;
         }
 
         void UpdateChrs()
         {
+            var fpos = PointToClient(MousePosition);
+
             //敵とアイテムの移動と跳ね返り処理
             for (int i = EnemyIndex; i < LabelMax; i++)
             {
@@ -203,13 +222,35 @@ namespace YOKETORUcs
                 {
                     vy[i] = -Math.Abs(vy[i]);
                 }
+
+                //fposがラベルと重なっている
+                if ((fpos.X > labels[i].Left) && (fpos.X < labels[i].Right) && (fpos.Y > labels[i].Top) && (fpos.Y < labels[i].Bottom))
+                {
+                    //敵に当たった時
+                    if (i < ItemIndex)
+                    {
+                        nextState = State.Gameover;
+                    }
+                    //アイテムをとった時
+                    else
+                    {
+                        score += 100;
+                        labels[i].Visible = false;
+                        itemget++;
+                    }
+
+                    if (itemget >= ItemIndex)
+                    {
+                        nextState = State.Clear;
+                    }
+                }
             }
 
         }
 
         private void labelTitle_Click(object sender, EventArgs e)
         {
-         
+
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -220,6 +261,11 @@ namespace YOKETORUcs
         private void buttonToTitle_Click(object sender, EventArgs e)
         {
             nextState = State.Title;
+        }
+
+        private void labelItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
