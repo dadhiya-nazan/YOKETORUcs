@@ -1,6 +1,7 @@
 using Microsoft.VisualBasic.ApplicationServices;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
+using System.Windows.Forms.Design;
 
 namespace YOKETORUcs
 {
@@ -19,6 +20,13 @@ namespace YOKETORUcs
         static int LabelMax => ItemIndex + EnemyMax;//4+5=9
 
         Label[] labels = new Label[LabelMax];
+
+        static Random random = new Random();
+
+        int[] vx = new int[LabelMax];
+        int[] vy = new int[LabelMax];
+
+        static int SpeedMax => 10;
 
         //状態遷移、状態定義
         enum State
@@ -48,28 +56,42 @@ namespace YOKETORUcs
             {
                 labels[i] = new Label();
                 labels[i].AutoSize = true;
+                labels[i].Visible = false;
                 Controls.Add(labels[i]);
-                labels[i].Left += i * 60 + 30;
+
+                vx[i] = random.Next(-SpeedMax , SpeedMax+1);
+                vy[i] = random.Next(-SpeedMax , SpeedMax+1);
+
+                labelPlayer.Visible = false;
+                labelEnemy.Visible = false;
+                labelItem.Visible = false;
 
                 //Text,Font,ForeColorを種類ごとに設定
+                //プレイヤーラベルの生成
                 if (i >= PlayerIndex && i < PlayerMax)
                 {
                     labels[i].Text = labelPlayer.Text;
                     labels[i].Font = labelPlayer.Font;
                     labels[i].ForeColor = labelPlayer.ForeColor;
-                    labels[i].Left -= 25;
                 }
+                //敵ラベルの生成
                 if (i >= EnemyIndex && i <= EnemyMax)
                 {
                     labels[i].Text = labelEnemy.Text;
                     labels[i].Font = labelEnemy.Font;
                     labels[i].ForeColor = labelEnemy.ForeColor;
                 }
+                //アイテムラベルの生成
                 if (i >= ItemIndex && i < LabelMax)
                 {
                     labels[i].Text = labelItem.Text;
                     labels[i].Font = labelItem.Font;
                     labels[i].ForeColor = labelItem.ForeColor;
+                }
+
+                if (i >= EnemyIndex)
+                {
+                    labels[i].Left = labels[i - 1].Left + labels[i - 1].Width;
                 }
             }
         }
@@ -78,6 +100,7 @@ namespace YOKETORUcs
         {
             InitState();
             UpdateState();
+            UpdateChrs();
         }
 
         void InitState()
@@ -104,7 +127,13 @@ namespace YOKETORUcs
                 case State.Game:
                     labelTitle.Visible = false;
                     buttonStart.Visible = false;
+                    
+                    for (int i = 0; i < LabelMax; i++)
+                    {
+                        labels[i].Visible = true;
+                    }
                     break;
+                    
 
                 case State.Gameover:
                     labelGameover.Visible = true;
@@ -140,11 +169,47 @@ namespace YOKETORUcs
             {
                 nextState = State.Clear;
             }
+
+            //プレイヤーの移動
+            var fpos = PointToClient(MousePosition);
+            labels[PlayerIndex].Left = fpos.X - (labels[PlayerIndex].Width / 2);
+            labels[PlayerIndex].Top = fpos.Y - (labels[PlayerIndex].Height / 2);
+
+            //キャラクターの更新
+            UpdateChrs();
+        }
+
+        void UpdateChrs()
+        {
+            //敵とアイテムの移動と跳ね返り処理
+            for (int i = EnemyIndex; i < LabelMax; i++)
+            {
+                labels[i].Left += vx[i];
+                labels[i].Top += vy[i];
+
+                if (labels[i].Left < 0)
+                {
+                    vx[i] = Math.Abs(vx[i]);
+                }
+                else if (labels[i].Left > (ClientSize.Width - labels[i].Width))
+                {
+                    vx[i] = -Math.Abs(vx[i]);
+                }
+                else if (labels[i].Top < 0)
+                {
+                    vy[i] = Math.Abs(vy[i]);
+                }
+                else if (labels[i].Top > (ClientSize.Height - labels[i].Height))
+                {
+                    vy[i] = -Math.Abs(vy[i]);
+                }
+            }
+
         }
 
         private void labelTitle_Click(object sender, EventArgs e)
         {
-
+         
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
