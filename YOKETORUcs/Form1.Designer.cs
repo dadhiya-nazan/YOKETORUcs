@@ -40,6 +40,7 @@
             labelItem = new Label();
             labelPlayer = new Label();
             labelEnemy = new Label();
+            labelHighScore = new Label();
             SuspendLayout();
             // 
             // timer1
@@ -112,7 +113,7 @@
             // 
             labelScore.AutoSize = true;
             labelScore.Font = new Font("Swis721 BlkCn BT", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
-            labelScore.Location = new Point(448, 9);
+            labelScore.Location = new Point(424, 9);
             labelScore.Name = "labelScore";
             labelScore.Size = new Size(28, 32);
             labelScore.TabIndex = 5;
@@ -133,11 +134,12 @@
             // 
             labelItem.AutoSize = true;
             labelItem.Font = new Font("メイリオ", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            labelItem.Location = new Point(299, 290);
+            labelItem.ForeColor = Color.FromArgb(255, 255, 128);
+            labelItem.Location = new Point(299, 295);
             labelItem.Name = "labelItem";
             labelItem.Size = new Size(45, 41);
             labelItem.TabIndex = 7;
-            labelItem.Text = "ア";
+            labelItem.Text = "★";
             labelItem.Click += labelItem_Click;
             // 
             // labelPlayer
@@ -153,18 +155,31 @@
             // labelEnemy
             // 
             labelEnemy.AutoSize = true;
-            labelEnemy.Font = new Font("メイリオ", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            labelEnemy.Location = new Point(556, 290);
+            labelEnemy.BackColor = SystemColors.ControlDark;
+            labelEnemy.Font = new Font("メイリオ", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            labelEnemy.Location = new Point(572, 310);
             labelEnemy.Name = "labelEnemy";
-            labelEnemy.Size = new Size(45, 41);
+            labelEnemy.Size = new Size(52, 21);
             labelEnemy.TabIndex = 10;
-            labelEnemy.Text = "敵";
+            labelEnemy.Text = "◉▽◉";
+            labelEnemy.Click += labelEnemy_Click;
+            // 
+            // labelHighScore
+            // 
+            labelHighScore.AutoSize = true;
+            labelHighScore.Font = new Font("Swis721 BlkCn BT", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelHighScore.Location = new Point(721, 9);
+            labelHighScore.Name = "labelHighScore";
+            labelHighScore.Size = new Size(141, 32);
+            labelHighScore.TabIndex = 11;
+            labelHighScore.Text = "ハイスコア:0";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(944, 535);
+            Controls.Add(labelHighScore);
             Controls.Add(labelEnemy);
             Controls.Add(labelPlayer);
             Controls.Add(labelItem);
@@ -176,6 +191,7 @@
             Controls.Add(buttonToTitle);
             Controls.Add(labelClear);
             Font = new Font("游ゴシック", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            ForeColor = SystemColors.ActiveCaptionText;
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
@@ -195,5 +211,6 @@
         private Label labelItem;
         private Label labelPlayer;
         private Label labelEnemy;
+        private Label labelHighScore;
     }
 }

@@ -11,8 +11,8 @@ namespace YOKETORUcs
         public static extern short GetAsyncKeyState(int vKey);
 
         static int PlayerMax => 1;
-        static int EnemyMax => 4;
-        static int ItemMax => 4;
+        static int EnemyMax => 30;
+        static int ItemMax => 30;
 
         static int PlayerIndex => 0;
         static int EnemyIndex => PlayerIndex + PlayerMax;//0+1=1
@@ -29,6 +29,7 @@ namespace YOKETORUcs
         static int SpeedMax => 10;
 
         int score;
+        int highscore = 0;
         int timer;
         int itemget;
 
@@ -118,10 +119,18 @@ namespace YOKETORUcs
                 case State.Title:
                     labelTitle.Visible = true;
                     buttonStart.Visible = true;
+                    labelHighScore.Visible = true;
 
                     labelClear.Visible = false;
                     labelGameover.Visible = false;
                     buttonToTitle.Visible = false;
+
+                    //ハイスコア判定
+                    if (score > highscore)
+                    {
+                        highscore = score;
+                    }
+                    labelHighScore.Text = $"ハイスコア:{highscore}";
                     break;
 
                 case State.Game:
@@ -226,6 +235,12 @@ namespace YOKETORUcs
                 //fposがラベルと重なっている
                 if ((fpos.X > labels[i].Left) && (fpos.X < labels[i].Right) && (fpos.Y > labels[i].Top) && (fpos.Y < labels[i].Bottom))
                 {
+                    if (!labels[i].Visible)
+                    {
+                        continue;
+                    }
+
+
                     //敵に当たった時
                     if (i < ItemIndex)
                     {
@@ -234,12 +249,13 @@ namespace YOKETORUcs
                     //アイテムをとった時
                     else
                     {
-                        score += 100;
+                        score += timer * 100;
                         labels[i].Visible = false;
                         itemget++;
                     }
 
-                    if (itemget >= ItemIndex)
+
+                    if (itemget >= ItemMax)
                     {
                         nextState = State.Clear;
                     }
@@ -264,6 +280,11 @@ namespace YOKETORUcs
         }
 
         private void labelItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelEnemy_Click(object sender, EventArgs e)
         {
 
         }
